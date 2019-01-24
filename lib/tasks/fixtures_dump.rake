@@ -31,7 +31,7 @@ namespace 'db:fixtures' do
             "#{model.to_s.underscore}_#{r.id}"
           end
           attributes = r.attributes.except(:password_digest).delete_if{|k,v| v.nil?}
-          hash[key] = attributes
+          hash[key.underscore] = attributes
         end
         file.write hash.to_yaml
       end
