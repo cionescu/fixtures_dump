@@ -13,7 +13,7 @@ namespace 'db:fixtures' do
     puts "Required models: #{required.join(", ")}"
     puts "Excluded models: #{excluded.join(", ")}"
 
-    models_to_dump = required.any? ? required.map(&:constantize) : models
+    models_to_dump = required.any? ? required.compact.map(&:constantize) : models
     models_to_dump.each do |model|
       puts "exporting: #{model.to_s}"
 
@@ -30,7 +30,7 @@ namespace 'db:fixtures' do
           else
             "#{model.to_s.underscore}_#{r.id}"
           end
-          attributes = r.attributes.except(:password_digest).delete_if{|k,v| v.nil?}
+          attributes = r.attributes.except(:password_digest, :created_at, :updated_at).delete_if{|k,v| v.nil?}
           hash[key.underscore] = attributes
         end
         file.write hash.to_yaml
