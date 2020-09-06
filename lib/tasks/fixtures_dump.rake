@@ -22,16 +22,10 @@ namespace 'db:fixtures' do
 
       filepath.open('w') do |file|
         hash = {}
-        model.find_each do |r|
-          key = if r.respond_to?(:immutable_name)
-            r.immutable_name
-          elsif r.respond_to?(:name)
-            r.name
-          else
-            "#{model.to_s.underscore}_#{r.id}"
-          end
-          attributes = r.attributes.except(:password_digest, :created_at, :updated_at).delete_if{|k,v| v.nil?}
-          hash[key.underscore] = attributes
+        model.find_each do |record|
+          record_key = FixturesDump::Helpers.record_key(record, model)
+          attributes = record.attributes.except('password_digest', 'created_at', 'updated_at').delete_if{ |_,value| value.blank? }
+          hash[record_key] = attributes
         end
         file.write hash.to_yaml
       end

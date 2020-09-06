@@ -22,19 +22,19 @@ Or install it yourself as:
 
 ### General usage:
 
-    bundle exec rake db:fixtures:dump
+    bundle exec rails db:fixtures:dump
 
 It defaults to using _'test/fixtures'_ as the fixture folder. This can be customized with the environmental variable _FIXTURES_PATH_
 
-    FIXTURES_PATH=spec/fixtures bundle exec rake db:fixtures:dump
+    FIXTURES_PATH=spec/fixtures bundle exec rails db:fixtures:dump
 
 You can either dump all models (with no configuration), or you can whitelist the desired models with the _REQUIRED_ environmental variable.
 
-    REQUIRED=RequiredModel bundle exec rake db:fixtures:dump
+    REQUIRED=RequiredModel bundle exec rails db:fixtures:dump
 
 You can also download all the models that descend from _ActiveRecord::Base.descendants_ except for some:
 
-    EXCLUDED=ExcludeThis bundle exec rake db:fixtures:dump
+    EXCLUDED=ExcludeThis bundle exec rails db:fixtures:dump
 
 ## Development
 
